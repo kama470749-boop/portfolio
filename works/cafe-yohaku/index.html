@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>珈琲と余白 ヨハク（練習用・架空のカフェ）</title>
+<meta name="description" content="練習用に制作した架空のカフェのランディングページです。実在の店舗・団体とは関係ありません。">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5EFE6;        /* クリーム */
+    --surface: #FFFDF9;   /* 生成り */
+    --line: #E3D7C6;      /* 麻色（面・線のみ） */
+    --main: #4A3428;      /* 珈琲ブラウン */
+    --accent: #56654A;    /* セージグリーン */
+    --text: #2B2320;      /* 焦げ茶 */
+    --font-heading: "Zen Old Mincho", serif;
+    --font-body: "Zen Kaku Gothic New", sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 16px; line-height: 1.9; }
+  h1, h2, h3 { font-family: var(--font-heading); color: var(--main); letter-spacing: .06em; font-weight: 700; }
+  img, svg { display: block; max-width: 100%; }
+  a { color: var(--accent); }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+  section { padding: 104px 0; }
+  .eyebrow { font-family: var(--font-heading); font-size: 13px; letter-spacing: .3em; color: var(--accent); margin-bottom: 6px; }
+  .sec-title { font-size: clamp(24px, 3.2vw, 34px); margin-bottom: 40px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 12px 32px; background: var(--main); color: #fff; text-decoration: none; border-radius: 999px; font-weight: 500; letter-spacing: .05em; }
+  .btn:hover, .btn:focus-visible { background: #2F2019; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  /* 練習用の明記 */
+  /* v3: 練習用表記を短くし、ポートフォリオへ戻るリンクを追加（B-4, B-5） */
+  .practice-bar { background: var(--main); color: #fff; font-size: 13px; text-align: center; padding: 8px 16px; line-height: 1.6; }
+  .practice-bar a { color: #fff; margin-left: 12px; white-space: nowrap; }
+
+  header { position: sticky; top: 0; z-index: 10; background: rgba(245,239,230,.94); border-bottom: 1px solid var(--line); backdrop-filter: blur(6px); }
+  header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 68px; }
+  .logo { font-family: var(--font-heading); font-weight: 700; font-size: 20px; color: var(--main); text-decoration: none; letter-spacing: .12em; white-space: nowrap; }
+  .logo small { font-size: 11px; letter-spacing: .2em; color: var(--accent); margin-left: 8px; }
+  nav { display: flex; gap: 28px; align-items: center; font-size: 14px; }
+  nav a { color: var(--text); text-decoration: none; }
+  nav .btn { min-height: 44px; padding: 6px 20px; color: #fff; white-space: nowrap; }
+
+  /* ヒーロー */
+  .hero { padding: 72px 0 104px; }
+  .hero .wrap { display: grid; grid-template-columns: 1fr 1.05fr; gap: 64px; align-items: center; }
+  .hero h1 { font-size: clamp(30px, 3.4vw, 44px); line-height: 1.55; margin-bottom: 24px; }
+  .hero h1 span { display: inline-block; }
+  .hero .lead { margin-bottom: 36px; }
+  .hero .meta { margin-top: 20px; font-size: 14px; }
+  .hero-visual { border-radius: 200px 200px 8px 8px; overflow: hidden; background: var(--surface); border: 1px solid var(--line); }
+
+  /* コンセプト */
+  .concept { background: var(--surface); }
+  .concept .wrap { display: grid; grid-template-columns: 1fr 1.4fr; gap: 64px; }
+  .concept p + p { margin-top: 1.2em; }
+  .points { margin-top: 56px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; list-style: none; padding: 0; grid-column: 1 / -1; }
+  .points li { border-top: 1px solid var(--main); padding-top: 20px; }
+  .points h3 { font-size: 19px; margin-bottom: 8px; }
+
+  /* メニュー */
+  .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 48px 64px; }
+  .menu-grid h3 { font-size: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--line); margin-bottom: 12px; }
+  .menu-list { list-style: none; padding: 0; }
+  .menu-list li { display: flex; align-items: baseline; gap: 12px; padding: 8px 0; }
+  .menu-list li::after { content: none; }
+  /* v3: 長い品名でも価格がはみ出さないよう折り返しを許可（B-3） */
+  .menu-list .name { flex: 0 1 auto; min-width: 0; }
+  .menu-list .dots { flex: 1; min-width: 2em; border-bottom: 1px dotted #A89886; transform: translateY(-4px); }
+  .menu-list .price { flex: none; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .menu-list .desc { display: block; font-size: 13px; color: #5E524A; }
+  .menu-note { margin-top: 32px; font-size: 13px; color: #5E524A; }
+
+  /* 過ごし方 */
+  .scene { background: var(--surface); }
+  .scene-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .scene-card .pic { aspect-ratio: 4 / 3; border-radius: 6px; overflow: hidden; margin-bottom: 16px; background: var(--line); }
+  .scene-card .time { font-family: var(--font-heading); color: var(--accent); font-size: 14px; letter-spacing: .15em; }
+  .scene-card h3 { font-size: 19px; margin: 2px 0 6px; }
+
+  /* 店舗情報 */
+  .info .wrap { display: grid; grid-template-columns: 1.2fr 1fr; gap: 56px; align-items: start; }
+  .info-note { font-size: 14px; color: #5E524A; margin: -24px 0 24px; }
+  .info dl { display: grid; grid-template-columns: 7em 1fr; border-top: 1px solid var(--line); }
+  .info dt, .info dd { padding: 16px 0; border-bottom: 1px solid var(--line); }
+  .info dt { font-weight: 500; color: var(--main); }
+  .map { aspect-ratio: 1; border-radius: 6px; overflow: hidden; border: 1px solid var(--line); background: var(--surface); }
+
+  /* 最後の行動喚起 */
+  .cta { background: var(--main); color: #fff; text-align: center; }
+  .cta h2 { color: #fff; font-size: clamp(22px, 3vw, 32px); line-height: 1.7; margin-bottom: 16px; }
+  .cta p { margin-bottom: 32px; }
+  .cta .btn { background: var(--bg); color: var(--main); }
+  .cta .btn:hover, .cta .btn:focus-visible { background: #fff; }
+  .cta :focus-visible { outline-color: #fff; }
+
+  footer { padding: 32px 0 40px; font-size: 13px; color: #5E524A; }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; }
+
+  @media (max-width: 767px) {
+    section { padding: 72px 0; }
+    .wrap { padding: 0 16px; }
+    nav a:not(.btn) { display: none; }
+    .hero { padding: 24px 0 72px; }
+    .hero h1 { margin-bottom: 16px; }
+    .hero .lead { margin-bottom: 24px; }
+    .hero .wrap, .concept .wrap, .points, .menu-grid, .scene-grid, .info .wrap { grid-template-columns: 1fr; gap: 32px; }
+    /* v2: スマホは横長に切り抜き、見出しとボタンを最初の画面に入れる（B-1） */
+    .hero-visual { order: -1; border-radius: 120px 120px 8px 8px; aspect-ratio: 4 / 3; max-height: 28svh; }
+    .hero-visual svg { width: 100%; height: 100%; }
+    .hero .wrap { gap: 20px; }
+    .hero .btn { width: 100%; }
+    .points { margin-top: 24px; }
+    .info dl { grid-template-columns: 5.5em 1fr; }
+  }
+  /* v3: 320px幅でヘッダーがはみ出さないように（B-2） */
+  @media (max-width: 374px) {
+    .logo small { display: none; }
+    nav .btn { padding: 6px 14px; }
+  }
+</style>
+</head>
+<body>
+
+<p class="practice-bar">※ 練習用に制作した架空のカフェのLPです。<a href="../../">← ポートフォリオに戻る</a></p>
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="#top">ヨハク<small>COFFEE &amp; SPACE</small></a>
+    <nav aria-label="ページ内メニュー">
+      <a href="#concept">コンセプト</a>
+      <a href="#menu">メニュー</a>
+      <a href="#info">店舗情報</a>
+      <a class="btn" href="#reserve">予約（デモ）</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ① ファーストビュー -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">CAFÉ YOHAKU</p>
+        <h1 id="hero-title"><span>一杯のあいだ、</span><br><span>何もしない時間を。</span></h1>
+        <p class="lead">木と光のなかで、ゆっくり淹れる珈琲。<br>予定の合間に、自分のための余白をつくるカフェです。</p>
+        <a class="btn" href="#reserve">席を予約する（デモ）</a>
+        <p class="meta">営業 8:00–18:00 ／ 火曜定休</p>
+      </div>
+      <div class="hero-visual">
+        <!-- 写真の代わりのイラスト（本番は店内写真に差し替え想定） -->
+        <svg viewBox="0 0 480 560" preserveAspectRatio="xMidYMax slice" role="img" aria-label="窓から光が差し込む木のテーブルに、湯気の立つ珈琲カップが置かれているイラスト">
+          <rect width="480" height="560" fill="#EFE5D6"/>
+          <rect x="80" y="60" width="320" height="300" rx="160" fill="#FBF6EE"/>
+          <line x1="240" y1="60" x2="240" y2="360" stroke="#E3D7C6" stroke-width="6"/>
+          <line x1="80" y1="220" x2="400" y2="220" stroke="#E3D7C6" stroke-width="6"/>
+          <path d="M120 360 L360 360 L480 560 L0 560 Z" fill="#F7EEDF" opacity=".8"/>
+          <rect x="0" y="400" width="480" height="160" fill="#A7825F"/>
+          <rect x="0" y="400" width="480" height="10" fill="#8C6A4B"/>
+          <path d="M0 450 C120 440 200 470 480 455" stroke="#96714F" stroke-width="2" fill="none"/>
+          <path d="M0 500 C160 490 300 515 480 500" stroke="#96714F" stroke-width="2" fill="none"/>
+          <ellipse cx="240" cy="428" rx="92" ry="14" fill="#8C6A4B" opacity=".6"/>
+          <ellipse cx="240" cy="420" rx="84" ry="12" fill="#FFFDF9"/>
+          <path d="M186 346 h108 v48 a40 40 0 0 1 -40 32 h-28 a40 40 0 0 1 -40 -32 Z" fill="#FFFDF9"/>
+          <path d="M294 358 a18 18 0 0 1 0 36" stroke="#FFFDF9" stroke-width="9" fill="none"/>
+          <ellipse cx="240" cy="346" rx="54" ry="9" fill="#4A3428"/>
+          <path d="M222 320 c-10 -16 10 -24 0 -44 M244 318 c-10 -16 10 -24 0 -44 M266 320 c-10 -16 10 -24 0 -44" stroke="#C9B8A3" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M392 400 c-6 -40 10 -70 34 -86 c-2 34 -14 62 -34 86 Z M392 400 c-20 -26 -44 -34 -64 -30 c14 20 36 30 64 30 Z" fill="#56654A"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ② コンセプト -->
+  <section id="concept" class="concept" aria-labelledby="concept-title">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">CONCEPT</p>
+        <h2 id="concept-title" class="sec-title">余白のある<br>カフェ</h2>
+      </div>
+      <div>
+        <p>席と席のあいだを広く取り、BGMは小さめに。窓際のカウンターは、ひとりで座るための場所です。</p>
+        <p>珈琲はご注文を受けてから一杯ずつハンドドリップで。待つ時間も、この店で過ごす時間の一部だと考えています。</p>
+      </div>
+      <ul class="points">
+        <li><h3>一杯ずつ、手で淹れる</h3><p>浅煎りから深煎りまで、その日の気分に合わせて選べます。</p></li>
+        <li><h3>ゆったりした席</h3><p>全16席。隣との距離を広めに取っています。</p></li>
+        <li><h3>静かに過ごせる</h3><p>通話はテラスで。読書や考えごとにどうぞ。</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ③ メニュー -->
+  <section id="menu" aria-labelledby="menu-title">
+    <div class="wrap">
+      <p class="eyebrow">MENU</p>
+      <h2 id="menu-title" class="sec-title">メニュー</h2>
+      <div class="menu-grid">
+        <div>
+          <h3>珈琲</h3>
+          <ul class="menu-list">
+            <li><span class="name">本日のハンドドリップ<span class="desc">浅煎り・深煎りから選べます</span></span><span class="dots" aria-hidden="true"></span><span class="price">¥580</span></li>
+            <li><span class="name">カフェオレ</span><span class="dots" aria-hidden="true"></span><span class="price">¥620</span></li>
+            <li><span class="name">水出し珈琲</span><span class="dots" aria-hidden="true"></span><span class="price">¥600</span></li>
+            <li><span class="name">ほうじ茶ラテ</span><span class="dots" aria-hidden="true"></span><span class="price">¥620</span></li>
+          </ul>
+        </div>
+        <div>
+          <h3>焼き菓子・軽食</h3>
+          <ul class="menu-list">
+            <li><span class="name">季節のタルト<span class="desc">内容は季節ごとに変わります</span></span><span class="dots" aria-hidden="true"></span><span class="price">¥560</span></li>
+            <li><span class="name">バターサンドクッキー</span><span class="dots" aria-hidden="true"></span><span class="price">¥380</span></li>
+            <li><span class="name">トーストと自家製ジャム</span><span class="dots" aria-hidden="true"></span><span class="price">¥480</span></li>
+            <li><span class="name">珈琲とタルトのセット</span><span class="dots" aria-hidden="true"></span><span class="price">¥1,050</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="menu-note">※ 価格はすべて税込です。</p>
+    </div>
+  </section>
+
+  <!-- ④ 過ごし方 -->
+  <section class="scene" aria-labelledby="scene-title">
+    <div class="wrap">
+      <p class="eyebrow">HOW TO SPEND</p>
+      <h2 id="scene-title" class="sec-title">ヨハクでの過ごし方</h2>
+      <div class="scene-grid">
+        <article class="scene-card">
+          <div class="pic"><svg viewBox="0 0 400 300" role="img" aria-label="朝の光が差す窓辺のイラスト"><rect width="400" height="300" fill="#F3E3C8"/><circle cx="300" cy="90" r="46" fill="#FBF1DE"/><rect x="0" y="210" width="400" height="90" fill="#B8936E"/><rect x="170" y="170" width="56" height="44" rx="6" fill="#FFFDF9"/><rect x="60" y="190" width="70" height="22" fill="#56654A"/></svg></div>
+          <p class="time">MORNING 8:00–</p>
+          <h3>出かける前の一杯</h3>
+          <p>開店直後は静かな時間帯。トーストと珈琲で一日を始められます。</p>
+        </article>
+        <article class="scene-card">
+          <div class="pic"><svg viewBox="0 0 400 300" role="img" aria-label="テーブルに本と珈琲が置かれたイラスト"><rect width="400" height="300" fill="#E9DDCB"/><rect x="0" y="200" width="400" height="100" fill="#A7825F"/><rect x="90" y="176" width="130" height="28" rx="2" fill="#FFFDF9"/><line x1="155" y1="176" x2="155" y2="204" stroke="#C9B8A3" stroke-width="2"/><rect x="250" y="160" width="50" height="44" rx="6" fill="#FFFDF9"/><ellipse cx="275" cy="160" rx="25" ry="5" fill="#4A3428"/></svg></div>
+          <p class="time">AFTERNOON 13:00–</p>
+          <h3>本を一冊ひらく</h3>
+          <p>窓際のカウンターは、読書や考えごとにちょうどいい高さです。</p>
+        </article>
+        <article class="scene-card">
+          <div class="pic"><svg viewBox="0 0 400 300" role="img" aria-label="夕方の店内とタルトのイラスト"><rect width="400" height="300" fill="#DCC7AA"/><rect x="0" y="200" width="400" height="100" fill="#8C6A4B"/><ellipse cx="200" cy="200" rx="70" ry="12" fill="#FFFDF9"/><path d="M160 196 L240 196 L228 172 L172 172 Z" fill="#D9A566"/><circle cx="186" cy="168" r="6" fill="#8E3B3B"/><circle cx="206" cy="166" r="6" fill="#8E3B3B"/><circle cx="224" cy="169" r="6" fill="#56654A"/></svg></div>
+          <p class="time">EVENING 16:00–</p>
+          <h3>一日の終わりに甘いもの</h3>
+          <p>季節のタルトと深煎りの珈琲で、ひと息ついてから帰りましょう。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑤ 店舗情報 -->
+  <section id="info" class="info" aria-labelledby="info-title">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">INFORMATION</p>
+        <h2 id="info-title" class="sec-title">店舗情報</h2>
+        <p class="info-note">※ 店名・住所・価格などはすべて架空の内容です。</p>
+        <dl>
+          <dt>店名</dt><dd>珈琲と余白 ヨハク</dd>
+          <dt>住所</dt><dd>〇〇市△△町1-2-3</dd>
+          <dt>アクセス</dt><dd>〇〇駅から徒歩5分</dd>
+          <dt>営業時間</dt><dd>8:00–18:00（L.O. 17:30）</dd>
+          <dt>定休日</dt><dd>火曜日</dd>
+          <dt>席数</dt><dd>16席（カウンター6席・テーブル10席）</dd>
+        </dl>
+      </div>
+      <div class="map">
+        <svg viewBox="0 0 400 400" role="img" aria-label="駅から店までの道順を示す簡略地図（架空）">
+          <rect width="400" height="400" fill="#FFFDF9"/>
+          <path d="M0 120 H400 M0 280 H400 M120 0 V400 M290 0 V400" stroke="#E3D7C6" stroke-width="22"/>
+          <rect x="40" y="96" width="60" height="48" rx="4" fill="#56654A"/>
+          <text x="70" y="126" font-size="14" fill="#fff" text-anchor="middle" font-family="sans-serif">駅</text>
+          <path d="M100 120 H290 V250" stroke="#4A3428" stroke-width="4" stroke-dasharray="8 8" fill="none"/>
+          <circle cx="290" cy="262" r="16" fill="#4A3428"/>
+          <text x="290" y="310" font-size="14" fill="#2B2320" text-anchor="middle" font-family="sans-serif">ヨハク</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑥ 最後の行動喚起 -->
+  <section id="reserve" class="cta" aria-labelledby="reserve-title">
+    <div class="wrap">
+      <h2 id="reserve-title">窓際の席を、<br>あなたの余白に。</h2>
+      <p>カウンター席はご予約いただけます。</p>
+      <a class="btn" href="#reserve" aria-describedby="reserve-note">席を予約する（デモ）</a>
+      <p id="reserve-note" style="margin: 16px 0 0; font-size: 14px;">※ 練習用のため、予約機能は動作しません。</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 珈琲と余白 ヨハク</span>
+    <span>練習用に制作したLPです。店名・住所・価格などはすべて架空の内容です。</span>
+  </div>
+</footer>
+
+</body>
+</html>
